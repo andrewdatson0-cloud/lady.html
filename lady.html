@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funny Cleaning Challenge 😂</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff0f5;
+  text-align: center;
+  color: #713c56;
+}
+
+h1 {
+  padding: 18px 10px 0;
+  color: #e84393;
+}
+
+p {
+  padding: 0 12px;
+}
+
+.scene {
+  position: relative;
+  width: min(96vw, 1100px);
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 8px 28px #0003;
+  background: #ddd;
+}
+
+.background {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Animated character overlay */
+.character {
+  position: absolute;
+  left: 37%;
+  top: 32%;
+  width: 17%;
+  height: 43%;
+  transform-origin: center bottom;
+  animation: sweep 16s infinite;
+}
+
+.person {
+  position: absolute;
+  inset: 0;
+  background: #ffffff08;
+  border: 2px dashed #ffffff00;
+  border-radius: 40%;
+}
+
+.broom {
+  position: absolute;
+  width: 5px;
+  height: 85%;
+  left: 70%;
+  top: 18%;
+  background: #b98246;
+  border-radius: 10px;
+  transform: rotate(-25deg);
+  transform-origin: top;
+  animation: broomMove 1s infinite alternate;
+}
+
+.broom::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: -12px;
+  width: 28px;
+  height: 35px;
+  background: #d6b27b;
+  border-radius: 4px 4px 12px 12px;
+}
+
+.caption {
+  font-size: 1.1rem;
+  font-weight: bold;
+  min-height: 36px;
+  margin: 15px;
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 13px 22px;
+  margin: 5px;
+  background: #e84393;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Funny action sequence */
+@keyframes sweep {
+  0%, 12% {
+    left: 37%;
+    top: 32%;
+    transform: rotate(0deg) scale(1);
+  }
+
+  /* Sweeping */
+  16%, 24% {
+    left: 25%;
+    top: 37%;
+    transform: rotate(-12deg) scale(1);
+  }
+
+  /* Crazy dancing */
+  28%, 40% {
+    left: 42%;
+    top: 32%;
+    transform: rotate(20deg) scale(1.1);
+  }
+
+  /* Push-up pose */
+  44%, 55% {
+    left: 35%;
+    top: 49%;
+    transform: rotate(90deg) scale(.8);
+  }
+
+  /* Run to the window */
+  60%, 68% {
+    left: 42%;
+    top: 30%;
+    transform: rotate(-15deg) scale(1);
+  }
+
+  /* Pretend to go through the window */
+  73%, 82% {
+    left: 40%;
+    top: 20%;
+    transform: rotate(0deg) scale(.25);
+    opacity: .2;
+  }
+
+  /* Return to the ground */
+  86%, 100% {
+    left: 37%;
+    top: 32%;
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes broomMove {
+  from { transform: rotate(-40deg); }
+  to { transform: rotate(35deg); }
+}
+
+.paused * {
+  animation-play-state: paused !important;
+}
+
+.note {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 16px 25px;
+  line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<h1>😂 The Ultimate Cleaning Challenge 😂</h1>
+<p>One lady. One broom. Unlimited energy!</p>
+
+<div class="scene" id="scene">
+  <img class="background" src="lady.jpg" alt="House and courtyard">
+
+  <div class="character">
+    <div class="person"></div>
+    <div class="broom"></div>
+  </div>
+</div>
+
+<div class="caption" id="caption">
+  🧹 Starting the cleaning mission...
+</div>
+
+<button onclick="togglePause()">⏯️ Pause / Play</button>
+<button onclick="restart()">🔁 Restart the madness</button>
+
+<div class="note">
+  <h2>Today's workout 😂</h2>
+  <p>
+    🧹 Sweep the entire courtyard<br>
+    💃 Dance like nobody is watching<br>
+    💪 Push-up challenge<br>
+    🪟 Window teleportation unlocked!
+  </p>
+</div>
+
+<script>
+const scene = document.getElementById("scene");
+const caption = document.getElementById("caption");
+
+const actions = [
+  { time: 0, text: "🧹 Cleaning like a champion!" },
+  { time: 4, text: "💃 Crazy dance mode ACTIVATED!" },
+  { time: 7, text: "💪 Push-up time! No excuses!" },
+  { time: 10, text: "🪟 Entering the window dimension..." },
+  { time: 13, text: "😂 Back again! More cleaning!" }
+];
+
+let paused = false;
+let timer = setInterval(updateCaption, 250);
+let startTime = Date.now();
+
+function updateCaption() {
+  if (paused) return;
+
+  const elapsed = ((Date.now() - startTime) / 1000) % 16;
+  let current = actions[0];
+
+  for (const action of actions) {
+    if (elapsed >= action.time) current = action;
+  }
+
+  caption.textContent = current.text;
+}
+
+function togglePause() {
+  paused = !paused;
+  scene.classList.toggle("paused", paused);
+  caption.textContent = paused
+    ? "⏸️ Time for a tea break!"
+    : "😂 Back to work!";
+}
+
+function restart() {
+  startTime = Date.now();
+  paused = false;
+  scene.classList.remove("paused");
+  caption.textContent = "🧹 Cleaning mission restarted!";
+}
+</script>
+
+</body>
+</html>
